@@ -1,24 +1,40 @@
+//Arshdeep Singh
+//200425787
+//url from github server
 let url = 'https://arshdeep980.github.io/jsLab8/products.json';
 
+//refering the html elements
+let header = document.querySelector('header');
+let section = document.querySelector('section');
+
 function jsonDisplay(url,callback){
-	let xhr = new XMLHttpRequest();
- 	xhr.open('GET', url);
- 	xhr.responseType= 'json';
- 	xhr.onload = function(){
- 		callback(xhr.response);
+	let request = new XMLHttpRequest();
+ 	request.open('GET', url);
+ 	request.responseType= 'json';
+ 	request.onload = function(){
+		 callback(request.response);
+		 populateHeader(products); 
+		 weirdDeals(products); 
  	};
- 	xhr.send();
+ 	request.send();
 };
 
+//populating the header
 function populateHeader(jsonObj) {
     let headerHeading = document.createElement('h1'); 
     headerHeading.textContent = jsonObj['companyName'];
-    header.appendChild(headerH1); 
+    header.appendChild(headerHeading); 
     let headerPara = document.createElement('p'); 
-    headerPara.textContent = jsonObj['headOffice']; 
-    header.appendChild(headerPara); 
+	headerPara.textContent = 'Head Office- ' + jsonObj['headOffice'];
+	//displayed established as well
+	headerEst = document.createElement('p');
+	headerEst.textContent = 'Established- ' + jsonObj['established']; 
+	header.appendChild(headerPara); 
+	header.appendChild(headerEst);
 }
 
+
+//main function to display eveything and did some styling as well
 function weirdDeals(jsonObj){
 	let topDeals = jsonObj.topDeals;
 	let section = document.querySelector('section');
@@ -51,3 +67,5 @@ function weirdDeals(jsonObj){
 
 	}
 }
+
+jsonDisplay('https://arshdeep980.github.io/jsLab8/products.json',weirdDeals);
