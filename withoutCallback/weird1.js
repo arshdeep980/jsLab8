@@ -7,6 +7,11 @@ let url = 'https://arshdeep980.github.io/jsLab8/products.json';
 let header = document.querySelector('header');
 let section = document.querySelector('section');
 
+//Adding PAYMENT REQUEST ASPI which is a browser API 
+//Because the customer after selecting the products will somehow need to pay and that urged me to add this API
+let paymentBtn = document.querySelector('button');
+
+//without the callbacks and displaying both the header and the body with weird products
 let request = new XMLHttpRequest();
 request.open('GET', url);
 request.responseType = 'json';
@@ -32,6 +37,35 @@ function populateHeader(jsonObj) {
     header.appendChild(headerEst);
 }
 
+//Adding event listener on button
+paymentBtn.addEventListener('click', requestPayment);
+
+//checking whether it exists or not and if yes use the if statement otherwise use the else statement
+//implementation of PAYMENT REQUEST API
+function requestPayment() {
+    if (window.PaymentRequest) {
+
+        let supportedMethodsToPay = [{
+            supportedMethods: ['basic-card']
+        }];
+
+        let paymentDescription = {
+            total: {
+                label: 'Weird Product Cost',
+                amount: {
+                    currency: 'CAD',
+                    value: 13.22
+                }
+            }
+        };
+
+        let paymentRequest = new PaymentRequest(supportedMethodsToPay, paymentDescription);
+        paymentRequest.show();
+
+    } else {
+        alert('Payment is not supported in your browser. Sowieee! :(');
+    }
+}
 
 //main function to display eveything and did some styling as well
 function weirdDeals(jsonObj) {

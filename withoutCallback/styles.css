@@ -60,3 +60,22 @@ h2 {
     font-size: 2.5rem;
     margin-bottom: 10px;
 }
+
+#pay {
+    border: 1px solid blue;
+    background-color: transparent;
+    color: blue;
+    height: 40px;
+    width: 80px;
+    align-content: center;
+}
+
+#pay:hover {
+    color: red;
+    border-color: red;
+    ;
+}
+
+div {
+    text-align: center;
+}
